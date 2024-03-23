@@ -14,5 +14,11 @@ struct VideoMainChannel
     SDL_mutex *mutex;
 };
 
+struct Image
+{
+    SDL_Surface *surface;
+};
+
 int rendering_thread(void *data);
 struct VideoMainChannel *video_new_channel();
+struct Image *load_image(const char *name);

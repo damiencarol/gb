@@ -7,6 +7,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 find_package(OpenAL REQUIRED)
 find_package(SDL2 REQUIRED)
+find_package(SDL2_IMAGE REQUIRED)
 find_package(PhysFS REQUIRED)
 find_package(Lua REQUIRED)
 
@@ -24,3 +25,4 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_LIBRARIES} PRIVATE ${SDL2_I
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PHYSFS_LIBRARY})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${OPENAL_LIBRARY})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${LUA_LIBRARY})
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2_image::SDL2_image)
