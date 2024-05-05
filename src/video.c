@@ -20,6 +20,12 @@ struct Image *load_image(const char *name)
     return image;
 }
 
+void free_image(struct Image *image)
+{
+    SDL_FreeSurface(image->surface);
+    free(image);
+}
+
 struct VideoMainChannel *video_new_channel()
 {
     struct VideoMainChannel *video_channel = malloc(sizeof(video_channel));
@@ -32,25 +38,13 @@ struct VideoMainChannel *video_new_channel()
     return video_channel;
 }
 
+/*
 int rendering_thread(void *data)
 {
     // struct Image* im1 = load_image("data/images/spritesheet_50x50_fixed.png");
 
     struct VideoMainChannel *video_channel = (struct VideoMainChannel *)data;
 
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s", SDL_GetError());
-        return 3;
-    }
-
-    SDL_Window *window;
-    SDL_Renderer *renderer;
-    if (SDL_CreateWindowAndRenderer(WINDOWS_WIDTH, WINDOWS_HEIGH, SDL_WINDOW_RESIZABLE, &window, &renderer))
-    {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window and renderer: %s", SDL_GetError());
-        return 3;
-    }
 
     // Uint64 previousTime = SDL_GetTicks64();
     // Uint64 current = SDL_GetTicks64();
@@ -62,9 +56,9 @@ int rendering_thread(void *data)
         // draw here
         SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
 
-        /*SDL_Rect srcrect = {5, 5};
-        SDL_Rect distrect = {5, 5};
-        SDL_BlitSurface(im1, srcrect, window, distrect);*/
+        //SDL_Rect srcrect = {5, 5};
+        //SDL_Rect distrect = {5, 5};
+        //SDL_BlitSurface(im1, srcrect, window, distrect);
 
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
@@ -85,8 +79,11 @@ int rendering_thread(void *data)
         // SDL_UnlockMutex(video_channel->mutex);
     }
 
+    printf("[Video] closing resources\n");
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
     return 0;
 }
+*/
