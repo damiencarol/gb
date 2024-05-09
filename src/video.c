@@ -1,7 +1,6 @@
 #include <physfs.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <vulkan/vulkan.h>
 
 #include "physfsrwops.h"
 #include "video.h"
