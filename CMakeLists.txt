@@ -7,12 +7,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 find_package(OpenAL REQUIRED)
 find_package(SDL2 REQUIRED)
-#find_package(SDL2_image REQUIRED)
+find_package(SDL2_image REQUIRED)
 find_package(PhysFS REQUIRED)
 find_package(Lua REQUIRED)
 
 include_directories(${SDL2_DIRS})
-#include_directories(${SDL2_IMAGE_DIRS})
+include_directories(${SDL2_IMAGE_DIRS})
 include_directories(${PhysFS_DIRS})
 include_directories(${LUA_INCLUDE_DIR})
 
