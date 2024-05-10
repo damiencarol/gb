@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Dependencies Linux
         run: >
-          sudo pacman --noconfirm -Sy openal sdl2 sld2_image lua physfs
+          sudo pacman --noconfirm -Sy openal sdl2 sdl2_image lua physfs
       - name: Configure
         run: cmake .
       - name: Build
