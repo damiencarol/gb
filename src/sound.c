@@ -1,15 +1,11 @@
 
-#include <stdio.h>
-#include <AL/al.h>
 #include "sound.h"
+#include <AL/al.h>
+#include <stdio.h>
 
-void test()
-{
-    ALenum err = alGetError();
-    printf("%s\n", alGetString(err));
+void test() {
+  ALenum err = alGetError();
+  printf("%s\n", alGetString(err));
 }
 
-void load_music()
-{
-
-}
+void load_music() {}
