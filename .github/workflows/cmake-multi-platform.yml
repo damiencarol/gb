@@ -12,7 +12,7 @@ jobs:
   container-test-job:
     runs-on: ubuntu-latest
     container:
-      image: steamos:latest
+      image: lscr.io/linuxserver/steamos:latest
       env:
         NODE_ENV: development
     steps:
