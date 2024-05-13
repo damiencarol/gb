@@ -16,29 +16,32 @@ int main(int argc, char *argv[]) {
   SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, ENGINE_DISCLAIMER);
 
   if (!PHYSFS_init(NULL)) {
-    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "fail to initialize FS loader %s\n",
+    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[main] fail to initialize FS loader %s\n",
                  PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
     return MAIN_ERROR_DATA;
   }
   PHYSFS_mount(argv[1], "/", 1);
 
+  SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "[main] initializing SDL...");
   // init SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s",
+    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[main] Couldn't initialize SDL: %s",
                  SDL_GetError());
     return 3;
   }
+  SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "[main] initializing renderer...");
   SDL_Window *window;
-  SDL_Renderer *renderer;
+  SDL_Renderer *renderer; // SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN
   if (SDL_CreateWindowAndRenderer(WINDOWS_WIDTH, WINDOWS_HEIGH,
                                   SDL_WINDOW_RESIZABLE, &window, &renderer)) {
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
-                 "Couldn't create window and renderer: %s", SDL_GetError());
+                 "[main] Couldn't create window and renderer: %s", SDL_GetError());
     SDL_Quit();
     return 3;
   }
 
-  struct ScriptState *script_state = init_script(SCRIPTING_DEFAULT_PATH);
+  SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "4");
+  //struct ScriptState *script_state = init_script(SCRIPTING_DEFAULT_PATH);
 
   struct Image *im1 = load_image("/images/spritesheet_50x50_fixed.png");
   SDL_Texture *te1 = SDL_CreateTextureFromSurface(renderer, im1->surface);
@@ -52,7 +55,7 @@ int main(int argc, char *argv[]) {
   Uint64 current = SDL_GetTicks64();
   Uint64 startTime = SDL_GetTicks64();
   int should_stop = 0;
-  Uint64 nb_frame = 0;
+  int nb_frame = 0;
   Uint64 dt =  0;
   while (!should_stop) {
     previousTime = current;
@@ -86,6 +89,7 @@ int main(int argc, char *argv[]) {
 
     SDL_RenderPresent(renderer);
 
+    SDL_Delay(1);
     while (SDL_PollEvent(&event)) {
       switch (event.type) {
       //case SDL_KEYUP:
@@ -116,7 +120,6 @@ int main(int argc, char *argv[]) {
       }
     }
 
-    SDL_Delay(1);
 
     /*if ((current - startTime) > 2000)
     {
@@ -126,21 +129,22 @@ int main(int argc, char *argv[]) {
     }*/
   }
 
-  script_close(script_state);
+  //script_close(script_state);
 
   // free_image(im1);
 
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
 
-  printf("[main] closing FS loader...\n");
+  SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "[main] closing SDL...\n");
+  SDL_Quit();
+
+  SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "[main] closing FS loader...\n");
   if (!PHYSFS_deinit()) {
-    printf("fail to deinit PHYSFS %s\n",
+     SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "fail to deinit PHYSFS %s\n",
            PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
     return MAIN_ERROR_DATA;
   }
-
-  SDL_Quit();
 
   return 0;
 }
