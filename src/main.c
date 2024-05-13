@@ -43,7 +43,6 @@ int main(int argc, char *argv[]) {
   struct Image *im1 = load_image("/images/spritesheet_50x50_fixed.png");
   SDL_Texture *te1 = SDL_CreateTextureFromSurface(renderer, im1->surface);
   //SDL_Rect src1 = {0, 0 + 150, 50, 50};
-  SDL_Rect dst1 = {20, 20, 100, 100};
   int vel_x = 0;
   int vel_y = 0;
 
@@ -54,12 +53,22 @@ int main(int argc, char *argv[]) {
   Uint64 startTime = SDL_GetTicks64();
   int should_stop = 0;
   Uint64 nb_frame = 0;
+  Uint64 dt =  0;
   while (!should_stop) {
     previousTime = current;
     current = SDL_GetTicks64();
     
-    Uint64 dt = current - previousTime;
+    dt += current - previousTime;
     
+    if (dt > 100) {
+        nb_frame += 1;
+        //nb_frame = nb_frame % 4;
+        if (nb_frame >= 4) {
+            nb_frame = 0;
+        }
+        vel_x +=2;
+        dt = dt - 100;
+    }
     // game_update(&game, current - previousTime);
     //SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "dt: %d", dt);
 
@@ -72,6 +81,7 @@ int main(int argc, char *argv[]) {
     SDL_RenderClear(renderer);
 
     SDL_Rect src1 = {50 + (nb_frame*50), 0 + 150, 50, 50};
+    SDL_Rect dst1 = {20 + vel_x, 20, 100, 100};
     SDL_RenderCopy(renderer, te1, &src1, &dst1);
 
     SDL_RenderPresent(renderer);
