@@ -55,7 +55,7 @@ struct ScriptState *init_script(const char *main_script_path) {
     PHYSFS_file *main_script = PHYSFS_openRead(main_script_path);
     PHYSFS_sint64 file_size_main_script = PHYSFS_fileLength(main_script);
     char *code_main_script;
-    code_main_script = malloc(file_size_main_script + 1);
+    code_main_script = (char *)malloc(file_size_main_script + 1);
     code_main_script[file_size_main_script] = 0;
     PHYSFS_sint64 nb_read =
         PHYSFS_readBytes(main_script, code_main_script, file_size_main_script);
@@ -81,7 +81,7 @@ struct ScriptState *init_script(const char *main_script_path) {
   } else {
     printf("[Scripting] fail to found main script\n");
   }
-  struct ScriptState *ret = malloc(1 * sizeof(struct ScriptState));
+  struct ScriptState *ret = (struct ScriptState *)malloc(1 * sizeof(struct ScriptState));
   ret->L = L;
   return ret;
 };

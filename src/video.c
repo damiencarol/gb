@@ -12,7 +12,7 @@ struct Image *load_image(const char *name) {
     return NULL; // file doesn't exist
   }
   struct Image *image;
-  image = malloc(1 * sizeof(struct Image));
+  image = (struct Image *)malloc(1 * sizeof(struct Image));
   SDL_RWops *rw = PHYSFSRWOPS_openRead(name);
   if (rw == NULL) {
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "can't load the file %s", name);
