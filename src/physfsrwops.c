@@ -139,7 +139,7 @@ static int physfsrwops_read(SDL_RWops *rw, void *ptr, int size, int maxnum)
       return -1;
 #endif
     } /* if */
-  }   /* if */
+  } /* if */
 
 #if TARGET_SDL2
   return (size_t)rc / size;
@@ -199,7 +199,7 @@ static SDL_RWops *create_rwops(PHYSFS_File *handle) {
       retval->close = physfsrwops_close;
       retval->hidden.unknown.data1 = handle;
     } /* if */
-  }   /* else */
+  } /* else */
 
   return retval;
 } /* create_rwops */

@@ -5,6 +5,7 @@
 
 #define ARCHIVE_NAME "data/0001.zip"
 #define ARCHIVEPATH_TITLE_FONT "fonts/title.ttf"
+#define DATA_PACKAGE_KENNEY "kenney_cursor-pack.zip"
 
 #define MAIN_ERROR_DATA 1
 

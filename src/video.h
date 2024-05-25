@@ -7,18 +7,16 @@
 #define WINDOWS_WIDTH 640
 #define WINDOWS_HEIGH 480
 
-struct VideoMainChannel
-{
-    int is_initialized;
-    int should_stop;
-    SDL_mutex *mutex;
-};
+extern SDL_Window *window;
+extern SDL_Renderer *renderer;
 
 struct Image
 {
     SDL_Surface *surface;
+    SDL_Texture *texture;
 };
 
-int rendering_thread(void *data);
-struct VideoMainChannel *video_new_channel();
+int video_init();
+int video_quit();
+
 struct Image *load_image(const char *name);

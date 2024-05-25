@@ -3,9 +3,9 @@ add_rules("mode.debug", "mode.release")
 
 add_requires("lua")
 add_requires("libsdl")
-add_requires("libsdl_image 2.6.0")
-add_requires("openal-soft")
-add_requires("vcpkg::physfs 3.2.0")
+add_requires("libsdl_image")
+add_requires("libsdl_mixer")
+add_requires("vcpkg::physfs 3.0.2")
 
 
 target("krystal.x86_64")
@@ -16,8 +16,8 @@ target("krystal.x86_64")
     add_packages("lua")
     add_packages("libsdl")
     add_packages("libsdl_image")
+    add_packages("libsdl_mixer")
     add_packages("vcpkg::physfs")
-    add_packages("openal-soft")
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
